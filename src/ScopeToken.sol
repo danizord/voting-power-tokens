@@ -5,6 +5,8 @@ import "nouns/base/ERC721Checkpointable.sol";
 import "./INounsVotes.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 
+// Manages delegation of a specific voting scope (e.g. Nouns Launchpad)
+// using the voting power provided by the underlying Nounish Token
 contract ScopeToken is INounsVotes {
     using EnumerableSet for EnumerableSet.AddressSet;
 
