@@ -64,4 +64,12 @@ contract ScopeToken is INounsVotes {
 
         return totalVotes;
     }
+
+    /**
+     * @notice Determine the prior voting power on this scope for an account as of a block number
+     * @param account The address of the account to check
+     * @param blockNumber The block number to get the voting power at
+     * @return The number of votes the account had on this scope as of the given block
+     */
+    //function getPriorVotes(address account, uint256 blockNumber) external view returns (uint96);
 }
