@@ -1,0 +1,10 @@
+{
+  "solidity.packageDefaultDependenciesContractsDirectory": "packages/contracts/src",
+  "solidity.packageDefaultDependenciesDirectory": "packages/contracts/lib",
+  "solidity.remappings": [
+    "ds-test/=packages/contracts/lib/forge-std/lib/ds-test/src/",
+    "forge-std/=packages/contracts/lib/forge-std/src/",
+    "nouns/=packages/contracts/lib/nouns-monorepo/packages/nouns-contracts/contracts/",
+    "@openzeppelin/contracts/=packages/contracts/lib/openzeppelin-contracts/contracts/"
+  ]
+}
