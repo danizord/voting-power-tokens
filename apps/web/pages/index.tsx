@@ -1,4 +1,4 @@
-import { Button } from "ui";
+import { Button } from "@danizord/voting-power-tokens-sdk";
 
 export default function Web() {
   return (
