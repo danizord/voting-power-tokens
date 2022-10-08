@@ -1,15 +1,14 @@
-# PropHouse Scopes [WIP]
+# ⚡️ Voting Power Tokens
 
-Scoped voting delegation for PropHouse https://prop.house/proposal/1258
+Some governance tokens gives too much power (and resposibility).
+What if we could split them in different pieces and delegate to different people?
 
-## Install
+This is what Voting Power Tokens are about. [Check it out!](https://votingpower.wtf)
 
-```bash
-forge install
-```
+🚧 **Work in progress** 🚧
 
-## Test
+### Thanks
 
-```bash
-forge test --fork-url https://rpc.flashbots.net --fork-block-number 15577375
-```
+- [Jacob (@js_horne)](https://twitter.com/js_horne) for originating the idea with [this tweet](https://twitter.com/js_horne/status/1564650524141649921).
+- [Prop House](https://prop.house/) for adopting and all the support.
+- [NounsDAO](https://nouns.wtf) for [funding](https://prop.house/nouns/round-9/1258).
