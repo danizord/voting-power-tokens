@@ -2,13 +2,13 @@
 pragma solidity ^0.8.13;
 
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
-import './IVotingPower.sol';
+import "./IVotingPower.sol";
 
 contract NounishVotingPower is IVotingPower {
     using EnumerableSet for EnumerableSet.AddressSet;
 
     IVotingPower private source;
-    
+
     EnumerableSet.AddressSet private delegators;
 
     mapping(address => address) private _delegates;
@@ -42,7 +42,7 @@ contract NounishVotingPower is IVotingPower {
 
     function getCurrentVotes(address account) public view returns (uint96) {
         uint96 votingPower = source.getCurrentVotes(account);
-        
+
         for (uint256 i = 0; i < delegators.length(); i++) {
             address delegator = delegators.at(i);
 

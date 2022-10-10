@@ -6,7 +6,7 @@ pragma solidity ^0.8.6;
  * @dev This is a subset of ERC721Checkpointable that excludes getPriorVotes()
  * VotingPower can't implement getPriorVotes() because it uses source token balance
  * to determine the delegated amount, which is not stored in past checkpoints.
- * 
+ *
  * https://github.com/nounsDAO/nouns-monorepo/blob/1.0.0/packages/nouns-contracts/contracts/base/ERC721Checkpointable.sol
  */
 interface IVotingPower {

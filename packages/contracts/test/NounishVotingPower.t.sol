@@ -56,8 +56,8 @@ contract NounishVotingPowerTest is Test {
         address c = address(2);
 
         vm.startPrank(a);
-            votingPower.delegate(b);
-            votingPower.delegate(c);
+        votingPower.delegate(b);
+        votingPower.delegate(c);
         vm.stopPrank();
 
         assertEq(votingPower.getCurrentVotes(a), 0);
@@ -80,8 +80,8 @@ contract NounishVotingPowerTest is Test {
         address c = address(2);
 
         vm.startPrank(a);
-            source.delegate(b);
-            votingPower.delegate(c);
+        source.delegate(b);
+        votingPower.delegate(c);
         vm.stopPrank();
 
         assertEq(source.getCurrentVotes(a), 0);
