@@ -15,7 +15,7 @@ contract NounishVotingPowerTest is Test {
 
     function setUp() public {
         source = IVotingPower(LIL_NOUNS);
-        votingPower = new NounishVotingPower(source);
+        votingPower = new NounishVotingPower(source, 1);
     }
 
     function testFallbackToUnderlyingNounsDelegationByDefault() public {

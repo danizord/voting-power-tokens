@@ -7,18 +7,25 @@ import "./IVotingPower.sol";
 contract NounishVotingPower is IVotingPower {
     using EnumerableSet for EnumerableSet.AddressSet;
 
+    event DelegateChanged(address indexed delegator, address indexed fromDelegate, address indexed toDelegate);
+
     IVotingPower private source;
+
+    uint96 multiplier;
 
     EnumerableSet.AddressSet private delegators;
 
     mapping(address => address) private _delegates;
 
-    constructor(IVotingPower _source) {
+    constructor(IVotingPower _source, uint96 _multiplier) {
         source = _source;
+        multiplier = _multiplier;
     }
 
     function delegate(address delegatee) public {
         address delegator = msg.sender;
+        address currentDelegate = _delegates[delegator];
+
         _delegates[delegator] = delegatee;
 
         if (address(0) == msg.sender) {
@@ -26,10 +33,12 @@ contract NounishVotingPower is IVotingPower {
         } else {
             delegators.add(delegator);
         }
+
+        emit DelegateChanged(delegator, currentDelegate, delegatee);
     }
 
     function votesToDelegate(address delegator) external view returns (uint96) {
-        return source.votesToDelegate(delegator);
+        return source.votesToDelegate(delegator) * multiplier;
     }
 
     function delegates(address delegator) external view returns (address) {
@@ -41,7 +50,7 @@ contract NounishVotingPower is IVotingPower {
     }
 
     function getCurrentVotes(address account) public view returns (uint96) {
-        uint96 votingPower = source.getCurrentVotes(account);
+        uint96 votingPower = source.getCurrentVotes(account) * multiplier;
 
         for (uint256 i = 0; i < delegators.length(); i++) {
             address delegator = delegators.at(i);
