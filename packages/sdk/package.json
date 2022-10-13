@@ -5,6 +5,7 @@
   "types": "./index.tsx",
   "license": "MIT",
   "scripts": {
+    "build": "eth-sdk",
     "lint": "eslint *.ts*"
   },
   "devDependencies": {
