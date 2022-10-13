@@ -4,7 +4,7 @@ import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 
 const { provider, chains } = configureChains(
-  [chain.mainnet],
+  [{ ...chain.foundry, ens: chain.mainnet.ens, multicall: chain.mainnet.multicall }],
   [
     jsonRpcProvider({
       rpc: (chain) => {
