@@ -46,8 +46,8 @@ const lilNounsPropHouse: VotingPowerToken = {
 };
 
 export const supportedTokens: VotingPowerToken[] = [
-  nounsDaoGovernance,
+  // nounsDaoGovernance,
   nounsPropHouse,
-  lilNounsGovernance,
+  // lilNounsGovernance,
   lilNounsPropHouse,
 ];
