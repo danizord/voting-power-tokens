@@ -1,16 +1,9 @@
 import { Container, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
 import { supportedTokens } from "@danizord/voting-power-tokens-sdk";
 import { ConnectKitButton } from "connectkit";
-import dynamic from "next/dynamic";
 import { Suspense } from "react";
 import { useAccount } from "../blockchain";
-
-const TokenCard = dynamic(
-  async () => {
-    return (await import("../components/TokenCard")).TokenCard;
-  },
-  { ssr: false }
-);
+import { TokenCard } from "../components/TokenCard";
 
 export default function IndexPage() {
   const account = useAccount();
