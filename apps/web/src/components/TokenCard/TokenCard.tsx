@@ -36,7 +36,7 @@ export function TokenCard({ token }: { token: VotingPowerToken }) {
             </Box>
 
             {delegate.data!.isDelegated && votingPower.data! === 0 && (
-              <DalegatedAlert delegate={delegate.data!.delegate} />
+              <DalegatedAlert token={token} delegate={delegate.data!.delegate} />
             )}
 
             <Delegators token={token} />

@@ -39,6 +39,7 @@ importers:
       ts-pattern: ^4.0.5
       tsconfig: workspace:*
       typescript: ^4.5.3
+      usehooks-ts: ^2.9.0
       vercel: ^28.4.8
       wagmi: '0.7'
     dependencies:
@@ -57,6 +58,7 @@ importers:
       react-dom: 18.2.0_react@18.2.0
       react-icons: 4.4.0_react@18.2.0
       ts-pattern: 4.0.5
+      usehooks-ts: 2.9.1_biqbaboplfbrettd7655fr4n2y
       wagmi: 0.7.0_zeuhokxhjcj57baey6ohg52hji
     devDependencies:
       '@babel/core': 7.19.3
@@ -7511,6 +7513,17 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
       react: 18.2.0
+    dev: false
+
+  /usehooks-ts/2.9.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-2FAuSIGHlY+apM9FVlj8/oNhd+1y+Uwv5QNkMQz1oSfdHk4PXo1qoCw9I5M7j0vpH8CSWFJwXbVPeYDjLCx9PA==}
+    engines: {node: '>=16.15.0', npm: '>=8'}
+    peerDependencies:
+      react: ^16.8.0  || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0  || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
     dev: false
 
   /utf-8-validate/5.0.9:
