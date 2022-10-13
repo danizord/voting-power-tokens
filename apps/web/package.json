@@ -24,7 +24,7 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "ts-pattern": "^4.0.5",
-    "wagmi": "^0.6.8"
+    "wagmi": "0.7"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

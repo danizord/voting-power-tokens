@@ -7,12 +7,13 @@ export function useVotingPower(token: VotingPowerToken) {
   const account = useAccount();
 
   return useContractRead({
-    addressOrName: token.contractAddress,
-    contractInterface: abi,
+    address: token.contractAddress,
+    abi: abi,
     functionName: "getCurrentVotes",
     args: [account.address],
     select: (value) => value.toNumber(),
     suspense: true,
+    watch: true,
   });
 }
 
@@ -20,15 +21,15 @@ export const useDelegate = (token: VotingPowerToken) => {
   const account = useAccount();
 
   const delegate = useContractRead({
-    addressOrName: token.contractAddress,
-    contractInterface: abi,
+    address: token.contractAddress,
+    abi: abi,
     functionName: "delegates",
     args: [account.address],
-    // @ts-ignore
-    select: (delegate: string) => {
+    select: (delegate) => {
       return { isDelegated: delegate !== account.address, delegate };
     },
     suspense: true,
+    watch: true,
   });
 
   return delegate;
@@ -36,11 +37,12 @@ export const useDelegate = (token: VotingPowerToken) => {
 
 export function useVotesToDelegate(token: VotingPowerToken, delegator: string) {
   return useContractRead({
-    addressOrName: token.contractAddress,
-    contractInterface: abi,
+    address: token.contractAddress,
+    abi: abi,
     functionName: "votesToDelegate",
     args: [delegator],
     select: (result) => result.toNumber(),
     suspense: true,
+    watch: true,
   });
 }
