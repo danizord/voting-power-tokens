@@ -1,9 +1,10 @@
 import { Alert, AlertDescription, AlertIcon, Button } from "@chakra-ui/react";
 import { VotingPowerToken } from "@danizord/voting-power-tokens-sdk";
+import type { Address } from "wagmi";
 import { useEnsName } from "wagmi";
 import { DelegateDialog } from "./DelegateDialog";
 
-export function DalegatedAlert({ delegate, token }: { delegate: string; token: VotingPowerToken }) {
+export function DalegatedAlert({ delegate, token }: { delegate: Address; token: VotingPowerToken }) {
   const ensName = useEnsName({ address: delegate });
 
   return (

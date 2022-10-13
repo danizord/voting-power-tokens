@@ -11,7 +11,7 @@ export function TokenCard({ token }: { token: VotingPowerToken }) {
   const account = useAccount();
   const delegate = useDelegate(token);
   const votingPower = useVotingPower(token);
-  const votesToDelegate = useVotesToDelegate(token, account.address);
+  const votesToDelegate = useVotesToDelegate(token, account.address!);
 
   if (0 === votingPower.data && 0 === votesToDelegate.data) {
     return null;

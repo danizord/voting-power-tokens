@@ -9,7 +9,7 @@ export function VotingPower({ token }: { token: VotingPowerToken }) {
   const {
     data: { isDelegated, delegate },
   } = useDelegate(token);
-  const { data: votesToDelegate } = useVotesToDelegate(token, account.address);
+  const { data: votesToDelegate } = useVotesToDelegate(token, account.address!);
 
   return (
     <Stack spacing={2} textAlign="center">

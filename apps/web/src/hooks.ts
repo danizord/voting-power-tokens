@@ -1,6 +1,6 @@
 import { abi, VotingPowerToken } from "@danizord/voting-power-tokens-sdk";
 
-import { useContractRead } from "wagmi";
+import { Address, useContractRead } from "wagmi";
 import { useAccount } from "./blockchain";
 
 export function useVotingPower(token: VotingPowerToken) {
@@ -10,7 +10,8 @@ export function useVotingPower(token: VotingPowerToken) {
     address: token.contractAddress,
     abi: abi,
     functionName: "getCurrentVotes",
-    args: [account.address],
+    args: [account.address!],
+    // @ts-ignore
     select: (value) => value.toNumber(),
     suspense: true,
     watch: true,
@@ -24,7 +25,8 @@ export const useDelegate = (token: VotingPowerToken) => {
     address: token.contractAddress,
     abi: abi,
     functionName: "delegates",
-    args: [account.address],
+    args: [account.address!],
+    // @ts-ignore
     select: (delegate) => {
       return { isDelegated: delegate !== account.address, delegate };
     },
@@ -35,12 +37,13 @@ export const useDelegate = (token: VotingPowerToken) => {
   return delegate;
 };
 
-export function useVotesToDelegate(token: VotingPowerToken, delegator: string) {
+export function useVotesToDelegate(token: VotingPowerToken, delegator: Address) {
   return useContractRead({
     address: token.contractAddress,
     abi: abi,
     functionName: "votesToDelegate",
     args: [delegator],
+    // @ts-ignore
     select: (result) => result.toNumber(),
     suspense: true,
     watch: true,

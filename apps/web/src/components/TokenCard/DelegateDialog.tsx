@@ -18,14 +18,14 @@ import {
 import { abi, VotingPowerToken } from "@danizord/voting-power-tokens-sdk";
 import { ReactElement, useRef, useState } from "react";
 import { useDebounce } from "usehooks-ts";
-import { useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+import { Address, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
 
 export const DelegateDialog = ({ trigger, token }: { trigger: ReactElement; token: VotingPowerToken }) => {
   const [delegateTo, setDelegateTo] = useState<string>("");
   const debouncedDelegateTo = useDebounce(delegateTo, 500);
 
   const { isOpen, onOpen, onClose } = useDisclosure({ onClose: () => setDelegateTo("") });
-  const initialFocusRef = useRef();
+  const initialFocusRef = useRef() as React.MutableRefObject<HTMLInputElement>;
 
   const {
     config,
@@ -35,7 +35,7 @@ export const DelegateDialog = ({ trigger, token }: { trigger: ReactElement; toke
     abi: abi,
     address: token.contractAddress,
     functionName: "delegate",
-    args: [debouncedDelegateTo],
+    args: [debouncedDelegateTo as Address],
     enabled: Boolean(debouncedDelegateTo),
   });
   const { data, error, isError, write } = useContractWrite(config);

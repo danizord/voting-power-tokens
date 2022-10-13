@@ -9,6 +9,6 @@ export const config = {
       lilNounsPropHouse: "0x39dd11c243ac4ac250980fa3aea016f73c509f37",
     },
   },
-};
+} as const;
 
 export default defineConfig(config);

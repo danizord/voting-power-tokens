@@ -4,7 +4,7 @@ import { abi, VotingPowerToken } from "@danizord/voting-power-tokens-sdk";
 
 import { flat, sort } from "radash";
 import { match } from "ts-pattern";
-import { useContractEvent, useEnsName, useQuery } from "wagmi";
+import { Address, useContractEvent, useEnsName, useQuery } from "wagmi";
 import { client, useAccount } from "../../blockchain";
 import { useVotesToDelegate, useVotingPower } from "../../hooks";
 import { DelegateDialog } from "./DelegateDialog";
@@ -33,16 +33,16 @@ const getDelegators = async (token: VotingPowerToken, account: string) => {
     match(event.args)
       .when(
         (e) => e.toDelegate === account,
-        () => state.add(event.args.delegator)
+        () => state.add(event.args.delegator as Address)
       )
       .when(
         (e) => e.fromDelegate === account,
-        () => state.delete(event.args.delegator)
+        () => state.delete(event.args.delegator as Address)
       )
       .run();
 
     return state;
-  }, new Set<string>());
+  }, new Set<Address>());
 
   return delegators;
 };
@@ -50,8 +50,9 @@ const getDelegators = async (token: VotingPowerToken, account: string) => {
 export const Delegators = ({ token }: { token: VotingPowerToken }) => {
   const account = useAccount();
   const votingPower = useVotingPower(token);
-  const delegators = useQuery(["delegators", token.contractAddress, account.address], () => {
-    return getDelegators(token, account.address);
+  const delegators = useQuery(["delegators", token.contractAddress, account.address], {
+    queryFn: () => getDelegators(token, account.address!),
+    suspense: true,
   });
 
   // Refetch delegators whenever DelegatorChanged occurs
@@ -79,8 +80,8 @@ export const Delegators = ({ token }: { token: VotingPowerToken }) => {
             </Tr>
           </Thead>
           <Tbody>
-            <DelegatorRow delegator={account.address} token={token} />
-            {Array.from(delegators.data ?? new Set()).map((delegator) => (
+            <DelegatorRow delegator={account.address!} token={token} />
+            {Array.from(delegators.data!).map((delegator) => (
               <DelegatorRow key={delegator} token={token} delegator={delegator} />
             ))}
           </Tbody>
@@ -90,7 +91,7 @@ export const Delegators = ({ token }: { token: VotingPowerToken }) => {
   );
 };
 
-const DelegatorRow = ({ token, delegator }: { token: VotingPowerToken; delegator: string }) => {
+const DelegatorRow = ({ token, delegator }: { token: VotingPowerToken; delegator: Address }) => {
   const account = useAccount();
   const ensName = useEnsName({ address: delegator });
   const delegatorVotes = useVotesToDelegate(token, delegator);
