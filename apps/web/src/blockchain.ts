@@ -3,7 +3,7 @@ import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 
-const { provider, chains } = configureChains(
+const { provider, webSocketProvider, chains } = configureChains(
   [{ ...chain.foundry, ens: chain.mainnet.ens, multicall: chain.mainnet.multicall }],
   [
     jsonRpcProvider({
@@ -17,6 +17,7 @@ const { provider, chains } = configureChains(
 export const client = createClient({
   autoConnect: true,
   provider,
+  webSocketProvider,
   connectors: [new MetaMaskConnector({ chains })],
 });
 
