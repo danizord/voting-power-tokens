@@ -3,7 +3,7 @@
 Some governance tokens gives too much power (and resposibility).
 What if we could split them in more granular tokens delegate to different people?
 
-This is what Voting Power Tokens are about. [Check it out!](https://votingpower.wtf)
+This is what Voting Power Tokens are about. [Read more](https://prop.house/nouns/round-9/1258)
 
 🚧 **Work in progress** 🚧
 
