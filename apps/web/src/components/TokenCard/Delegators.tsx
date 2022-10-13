@@ -1,7 +1,6 @@
 import { EditIcon } from "@chakra-ui/icons";
 import { Button, HStack, Stack, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
 import { abi, VotingPowerToken } from "@danizord/voting-power-tokens-sdk";
-
 import { flat, sort } from "radash";
 import { match } from "ts-pattern";
 import { Address, useContractEvent, useEnsName, useQuery } from "wagmi";
