@@ -1,0 +1,16 @@
+{
+  "name": "@voting-power/contracts",
+  "version": "1.0.0",
+  "scripts": {
+    "fork": "anvil --fork-url https://rpc.flashbots.net --chain-id 31337 --ipc",
+    "deploy:local": "wait-on socket:/tmp/anvil.ipc && forge script script/Deploy.s.sol --rpc-url http://localhost:8545 --broadcast",
+    "dev": "run-p fork deploy:local"
+  },
+  "keywords": [],
+  "author": "danizord",
+  "license": "MIT",
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "wait-on": "^6.0.1"
+  }
+}
