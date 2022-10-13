@@ -1,7 +1,7 @@
 import { getMainnetSdk } from ".dethcrypto/eth-sdk-client";
 import { ethers } from "ethers";
 
-export { default as abi } from "./eth-sdk/abis/mainnet/nounsPropHouse.json";
+export { abi } from "./abi";
 export { supportedTokens } from "./supportedTokens";
 
 export interface VotingPowerToken {

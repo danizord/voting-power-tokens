@@ -1,0 +1,40 @@
+export const abi = [
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: "address", name: "delegator", type: "address" },
+      { indexed: true, internalType: "address", name: "fromDelegate", type: "address" },
+      { indexed: true, internalType: "address", name: "toDelegate", type: "address" },
+    ],
+    name: "DelegateChanged",
+    type: "event",
+  },
+  {
+    inputs: [{ internalType: "address", name: "delegatee", type: "address" }],
+    name: "delegate",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "delegator", type: "address" }],
+    name: "delegates",
+    outputs: [{ internalType: "address", name: "", type: "address" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "account", type: "address" }],
+    name: "getCurrentVotes",
+    outputs: [{ internalType: "uint96", name: "", type: "uint96" }],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [{ internalType: "address", name: "delegator", type: "address" }],
+    name: "votesToDelegate",
+    outputs: [{ internalType: "uint96", name: "", type: "uint96" }],
+    stateMutability: "view",
+    type: "function",
+  },
+] as const;
