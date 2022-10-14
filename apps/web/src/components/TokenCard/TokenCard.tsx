@@ -27,7 +27,7 @@ export function TokenCard({ token }: { token: VotingPowerToken }) {
             <HStack spacing={4} alignItems={"end"}>
               <Heading size={"lg"}>{token.name}</Heading>
 
-              {!false && (
+              {votingPower.data !== 0 && (
                 <Button
                   as={"a"}
                   size={"sm"}
