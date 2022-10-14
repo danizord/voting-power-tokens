@@ -31,6 +31,7 @@ export const DelegateDialog = ({ trigger, token }: { trigger: ReactElement; toke
     config,
     error: prepareError,
     isError: isPrepareError,
+    isLoading: isPrepareLoading,
   } = usePrepareContractWrite({
     abi: abi,
     address: token.contractAddress,
@@ -81,7 +82,7 @@ export const DelegateDialog = ({ trigger, token }: { trigger: ReactElement; toke
                   aria-label={"Confirm"}
                   colorScheme="teal"
                   disabled={!write}
-                  isLoading={isLoading}
+                  isLoading={isPrepareLoading || isLoading}
                   type="submit"
                   icon={<CheckIcon></CheckIcon>}
                 />
