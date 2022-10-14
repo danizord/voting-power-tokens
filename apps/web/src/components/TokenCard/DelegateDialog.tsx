@@ -35,7 +35,7 @@ export const DelegateDialog = ({ trigger, token }: { trigger: ReactElement; toke
     abi: abi,
     address: token.contractAddress,
     functionName: "delegate",
-    args: [debouncedDelegateTo as Address],
+    args: [debouncedDelegateTo.toLowerCase() as Address],
     enabled: Boolean(debouncedDelegateTo),
   });
   const { data, error, isError, write } = useContractWrite(config);

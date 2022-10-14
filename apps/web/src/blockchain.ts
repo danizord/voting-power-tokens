@@ -1,24 +1,56 @@
+import { providers } from "ethers";
 import { chain, configureChains, createClient, useAccount as useAccount_ } from "wagmi";
+import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 
-import { MetaMaskConnector } from "wagmi/connectors/metaMask";
-
+// Configure local fork chain
 const { provider, webSocketProvider, chains } = configureChains(
-  [{ ...chain.foundry, ens: chain.mainnet.ens, multicall: chain.mainnet.multicall }],
   [
-    jsonRpcProvider({
-      rpc: (chain) => {
-        return { http: "http://localhost:8545" };
+    {
+      id: 31338,
+      name: "VotingPower Forked Mainnet",
+      network: "votingpower",
+      nativeCurrency: {
+        name: "ForkedEther",
+        symbol: "FrkETH",
+        decimals: 18,
       },
-    }),
-  ]
+      rpcUrls: {
+        default: "https://b667-2a09-bac0-97-00-824-d90c.ngrok.io",
+      },
+      blockExplorers: chain.mainnet.blockExplorers,
+      ens: chain.mainnet.ens,
+      multicall: chain.mainnet.multicall,
+      testnet: true,
+    },
+  ],
+  [jsonRpcProvider({ rpc: (chain) => ({ http: chain.rpcUrls.default, ws: chain.rpcUrls.default }) })]
 );
+
+// Override connector getSigner to add ENS resolver support
+const connector = new MetaMaskConnector({ chains });
+connector.getSigner = async ({ chainId }: { chainId?: number } = {}) => {
+  const [provider, account] = await Promise.all([connector.getProvider(), connector.getAccount()]);
+
+  const chain = connector.chains.find((x) => x.id === chainId);
+
+  return new providers.Web3Provider(
+    <providers.ExternalProvider>provider,
+    chain
+      ? {
+          chainId: chain.id,
+          name: chain.name,
+          ensAddress: chain.ens?.address,
+        }
+      : chainId
+  ).getSigner(account);
+};
 
 export const client = createClient({
   autoConnect: true,
   provider,
   webSocketProvider,
-  connectors: [new MetaMaskConnector({ chains })],
+  connectors: [connector],
 });
 
 export const useAccount = () => {
