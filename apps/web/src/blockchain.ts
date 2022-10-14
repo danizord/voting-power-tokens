@@ -1,6 +1,7 @@
 import { providers } from "ethers";
 import { chain, configureChains, createClient, useAccount as useAccount_ } from "wagmi";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
+import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 
 // Configure local fork chain
@@ -28,11 +29,11 @@ const { provider, webSocketProvider, chains } = configureChains(
 );
 
 // Override connector getSigner to add ENS resolver support
-const connector = new MetaMaskConnector({ chains });
-connector.getSigner = async ({ chainId }: { chainId?: number } = {}) => {
-  const [provider, account] = await Promise.all([connector.getProvider(), connector.getAccount()]);
+const metamaskConnector = new MetaMaskConnector({ chains });
+metamaskConnector.getSigner = async ({ chainId }: { chainId?: number } = {}) => {
+  const [provider, account] = await Promise.all([metamaskConnector.getProvider(), metamaskConnector.getAccount()]);
 
-  const chain = connector.chains.find((x) => x.id === chainId);
+  const chain = metamaskConnector.chains.find((x) => x.id === chainId);
 
   return new providers.Web3Provider(
     <providers.ExternalProvider>provider,
@@ -46,11 +47,16 @@ connector.getSigner = async ({ chainId }: { chainId?: number } = {}) => {
   ).getSigner(account);
 };
 
+const walletConnectConnector = new WalletConnectConnector({
+  chains,
+  options: { qrcode: false },
+});
+
 export const client = createClient({
   autoConnect: true,
   provider,
   webSocketProvider,
-  connectors: [connector],
+  connectors: [metamaskConnector, walletConnectConnector],
 });
 
 export const useAccount = () => {
