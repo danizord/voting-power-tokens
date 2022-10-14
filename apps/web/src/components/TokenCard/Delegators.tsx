@@ -1,56 +1,16 @@
 import { EditIcon } from "@chakra-ui/icons";
 import { Button, HStack, Stack, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
-import { abi, VotingPowerToken } from "@danizord/voting-power-tokens-sdk";
-import { flat, sort } from "radash";
-import { match } from "ts-pattern";
+import { abi, getDelegators, VotingPowerToken } from "@danizord/voting-power-tokens-sdk";
 import { Address, useContractEvent, useEnsName, useQuery } from "wagmi";
 import { client, useAccount } from "../../blockchain";
 import { useVotesToDelegate, useVotingPower } from "../../hooks";
 import { DelegateDialog } from "./DelegateDialog";
 
-const getDelegators = async (token: VotingPowerToken, account: string) => {
-  const source = token.source?.getContract(client.provider);
-  const derivative = token.getContract(client.provider);
-
-  // Fetch in parallel all DelegateChanged events "to" and "from" account, in both source and derivative contracts
-  let aggregatedEvents = flat(
-    await Promise.all([
-      ...(source ? [source.queryFilter(source.filters.DelegateChanged(null, null, account))] : []),
-      ...(source ? [source.queryFilter(source.filters.DelegateChanged(null, account, null))] : []),
-      ...[derivative.queryFilter(derivative.filters.DelegateChanged(null, null, account))],
-      ...[derivative.queryFilter(derivative.filters.DelegateChanged(null, account, null))],
-    ])
-  );
-
-  // Remove self-delegation events;
-  aggregatedEvents = aggregatedEvents.filter((e) => e.args.delegator !== account);
-
-  // Sort by block number
-  aggregatedEvents = sort(aggregatedEvents, (e) => e.blockNumber);
-
-  const delegators = aggregatedEvents.reduce((state, event) => {
-    match(event.args)
-      .when(
-        (e) => e.toDelegate === account,
-        () => state.add(event.args.delegator as Address)
-      )
-      .when(
-        (e) => e.fromDelegate === account,
-        () => state.delete(event.args.delegator as Address)
-      )
-      .run();
-
-    return state;
-  }, new Set<Address>());
-
-  return delegators;
-};
-
 export const Delegators = ({ token }: { token: VotingPowerToken }) => {
   const account = useAccount();
   const votingPower = useVotingPower(token);
   const delegators = useQuery(["delegators", token.contractAddress, account.address], {
-    queryFn: () => getDelegators(token, account.address!),
+    queryFn: () => getDelegators({ token, account: account.address!, provider: client.provider }),
     suspense: true,
   });
 

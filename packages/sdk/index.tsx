@@ -2,6 +2,7 @@ import { getMainnetSdk } from ".dethcrypto/eth-sdk-client";
 import { ethers } from "ethers";
 
 export { abi } from "./abi";
+export { getDelegators } from "./delegators";
 export { supportedTokens } from "./supportedTokens";
 
 export interface VotingPowerToken {
