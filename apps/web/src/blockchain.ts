@@ -12,7 +12,7 @@ const { provider, webSocketProvider, chains } = configureChains(
       network: "votingpower",
       nativeCurrency: {
         name: "ForkedEther",
-        symbol: "FrkETH",
+        symbol: "FakETH",
         decimals: 18,
       },
       rpcUrls: {
