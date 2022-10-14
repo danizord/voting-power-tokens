@@ -1,5 +1,5 @@
 import { EditIcon } from "@chakra-ui/icons";
-import { Button, HStack, Stack, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
+import { Button, HStack, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
 import { abi, getDelegators, VotingPowerToken } from "@voting-power/sdk";
 import { Address, useContractEvent, useEnsName, useQuery } from "wagmi";
 import { client, useAccount } from "../../blockchain";
@@ -22,31 +22,27 @@ export const Delegators = ({ token }: { token: VotingPowerToken }) => {
     listener: () => delegators.refetch(),
   });
 
-  if (votingPower.isSuccess && votingPower.data === 0) {
+  if (votingPower.data === 0) {
     return null;
   }
 
   return (
-    <Stack spacing={2}>
-      {/* <Heading fontSize={"lg"}>Delegators</Heading> */}
-
-      <TableContainer>
-        <Table size="sm">
-          <Thead>
-            <Tr>
-              <Th isNumeric>Votes</Th>
-              <Th width={"full"}>Delegator</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <DelegatorRow delegator={account.address!} token={token} />
-            {Array.from(delegators.data!).map((delegator) => (
-              <DelegatorRow key={delegator} token={token} delegator={delegator} />
-            ))}
-          </Tbody>
-        </Table>
-      </TableContainer>
-    </Stack>
+    <TableContainer>
+      <Table size="sm">
+        <Thead>
+          <Tr>
+            <Th isNumeric>Votes</Th>
+            <Th width={"full"}>Delegator</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          <DelegatorRow delegator={account.address!} token={token} />
+          {Array.from(delegators.data!).map((delegator) => (
+            <DelegatorRow key={delegator} token={token} delegator={delegator} />
+          ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
   );
 };
 
