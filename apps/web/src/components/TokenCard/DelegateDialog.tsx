@@ -42,7 +42,7 @@ export const DelegateDialog = ({ trigger, token }: { trigger: ReactElement; toke
         <PopoverContent bgColor={"gray.900"}>
           <PopoverArrow bgColor={"gray.900"} />
           <PopoverCloseButton />
-          <PopoverBody py={4}>
+          <PopoverBody p={4}>
             <FormControl
               as="form"
               isInvalid={isError}
@@ -53,7 +53,7 @@ export const DelegateDialog = ({ trigger, token }: { trigger: ReactElement; toke
               }}
             >
               <FormLabel>Delegate to</FormLabel>
-              <HStack spacing={2} alignItems={"end"}>
+              <HStack spacing={4} alignItems={"end"}>
                 <Input
                   type="text"
                   placeholder="Address or ENS"
