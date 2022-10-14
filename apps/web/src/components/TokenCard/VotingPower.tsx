@@ -1,4 +1,4 @@
-import { Stack, Stat, StatLabel, StatNumber } from "@chakra-ui/react";
+import { Stat, StatLabel, StatNumber } from "@chakra-ui/react";
 import { VotingPowerToken } from "@voting-power/sdk";
 import { useAccount } from "../../blockchain";
 import { useDelegate, useVotesToDelegate, useVotingPower } from "../../hooks";
@@ -12,13 +12,11 @@ export function VotingPower({ token }: { token: VotingPowerToken }) {
   const { data: votesToDelegate } = useVotesToDelegate(token, account.address!);
 
   return (
-    <Stack spacing={2} textAlign="center">
-      <Stat>
-        <StatLabel fontSize={"md"}>Voting Power</StatLabel>
-        <StatNumber fontSize={"6xl"} mt={4} rounded="xl" p={1} borderWidth={"thin"}>
-          {isDelegated && 0 === votingPower ? votesToDelegate : votingPower}
-        </StatNumber>
-      </Stat>
-    </Stack>
+    <Stat rounded="xl" pb={2} px={4} pt={1} borderWidth={"thin"} maxW={"fit-content"} textAlign={"center"}>
+      <StatNumber fontSize={"6xl"} lineHeight="shorter">
+        {isDelegated && 0 === votingPower ? votesToDelegate : votingPower}
+      </StatNumber>
+      <StatLabel fontSize={"sm"}>Voting Power</StatLabel>
+    </Stat>
   );
 }

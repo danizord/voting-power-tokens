@@ -18,47 +18,44 @@ export function TokenCard({ token }: { token: VotingPowerToken }) {
   }
 
   return (
-    <Box p={6} rounded="xl" backgroundColor={"whiteAlpha.100"}>
-      <HStack spacing={8} align="start">
-        <Stack spacing={6}>
-          <Image src={token.image} height="48" alt={`${token.name} Voting Power Token`} rounded="xl" />
-        </Stack>
+    <HStack p={6} rounded="xl" backgroundColor={"whiteAlpha.100"} spacing={8} align="start">
+      <Image src={token.image} height="200px" alt={`${token.name} Voting Power Token`} rounded="xl" />
 
-        <Stack spacing={6} flex="1">
-          <HStack justify={"space-between"} align="start">
-            <Heading size={"lg"}>{token.name}</Heading>
-          </HStack>
+      <Stack spacing={delegate.data.isDelegated ? 6 : 4} flex="1">
+        <HStack align={"start"} spacing={6}>
+          <Stack spacing={6} flex="1">
+            <HStack spacing={4} alignItems={"end"}>
+              <Heading size={"lg"}>{token.name}</Heading>
 
-          <Stack spacing={4}>
+              {!false && (
+                <Button
+                  as={"a"}
+                  size={"sm"}
+                  href={token.voteUrl}
+                  target="_blank"
+                  colorScheme="purple"
+                  rightIcon={<ExternalLinkIcon />}
+                >
+                  Vote
+                </Button>
+              )}
+            </HStack>
+
             <Box>
               <Text>{token.sourceDescription}</Text>
               <Text>{token.votingPowerDescription}</Text>
             </Box>
-
-            {delegate.data!.isDelegated && votingPower.data! === 0 && (
-              <DalegatedAlert token={token} delegate={delegate.data!.delegate} />
-            )}
-
-            <Delegators token={token} />
           </Stack>
-        </Stack>
 
-        <Stack spacing={6}>
           <VotingPower token={token}></VotingPower>
+        </HStack>
 
-          <Button
-            as={"a"}
-            href={token.voteUrl}
-            target="_blank"
-            width={"full"}
-            size={"md"}
-            colorScheme="purple"
-            rightIcon={<ExternalLinkIcon />}
-          >
-            Vote
-          </Button>
-        </Stack>
-      </HStack>
-    </Box>
+        {delegate.data!.isDelegated && votingPower.data! === 0 && (
+          <DalegatedAlert token={token} delegate={delegate.data!.delegate} />
+        )}
+
+        <Delegators token={token} />
+      </Stack>
+    </HStack>
   );
 }
