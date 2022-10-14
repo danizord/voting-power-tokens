@@ -4,7 +4,7 @@ import { config } from "../eth-sdk/config";
 import { VotingPowerToken } from "./index";
 
 const nounsDaoGovernance: VotingPowerToken = {
-  name: "Nouns DAO Governance",
+  name: "NounsDAO",
   image: "https://i.imgur.com/seB1iJo.png",
   voteUrl: "https://nouns.wtf/vote",
   sourceDescription: "Derivates from Nouns NFT balance.",
@@ -25,7 +25,7 @@ const nounsPropHouse: VotingPowerToken = {
 };
 
 const lilNounsGovernance: VotingPowerToken = {
-  name: "Lil Nouns Governance",
+  name: "Lil Nouns",
   image: "https://i.imgur.com/h7rmEOX.png",
   voteUrl: "https://lilnouns.wtf/vote",
   sourceDescription: "Derivates from Lil Nouns NFT balance.",
