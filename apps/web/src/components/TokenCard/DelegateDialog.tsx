@@ -1,7 +1,7 @@
 import { CheckIcon } from "@chakra-ui/icons";
 import {
   FormControl,
-  FormHelperText,
+  FormErrorMessage,
   FormLabel,
   HStack,
   IconButton,
@@ -15,32 +15,18 @@ import {
   Portal,
   useDisclosure,
 } from "@chakra-ui/react";
-import { abi, VotingPowerToken } from "@voting-power/sdk";
+import { VotingPowerToken } from "@voting-power/sdk";
 import { ReactElement, useRef, useState } from "react";
 import { useDebounce } from "usehooks-ts";
-import { Address, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
+import { useSetDelegateTransaction } from "../../delegate";
 
 export const DelegateDialog = ({ trigger, token }: { trigger: ReactElement; token: VotingPowerToken }) => {
-  const [delegateTo, setDelegateTo] = useState<string>("");
-  const debouncedDelegateTo = useDebounce(delegateTo, 500);
+  const [newDelegate, setNewDelegate] = useState<string>("");
+  const debouncedNewDelegate = useDebounce(newDelegate, 500);
 
-  const { isOpen, onOpen, onClose } = useDisclosure({ onClose: () => setDelegateTo("") });
+  const { isOpen, onOpen, onClose } = useDisclosure({ onClose: () => setNewDelegate("") });
   const initialFocusRef = useRef() as React.MutableRefObject<HTMLInputElement>;
-
-  const {
-    config,
-    error: prepareError,
-    isError: isPrepareError,
-    isLoading: isPrepareLoading,
-  } = usePrepareContractWrite({
-    abi: abi,
-    address: token.contractAddress,
-    functionName: "delegate",
-    args: [debouncedDelegateTo.toLowerCase() as Address],
-    enabled: Boolean(debouncedDelegateTo),
-  });
-  const { data, error, isError, write } = useContractWrite(config);
-  const { isLoading } = useWaitForTransaction({ hash: data?.hash, onSuccess: () => onClose() });
+  const { error, isError, isLoading, submit } = useSetDelegateTransaction({ token, newDelegate: debouncedNewDelegate });
 
   return (
     <Popover
@@ -54,41 +40,40 @@ export const DelegateDialog = ({ trigger, token }: { trigger: ReactElement; toke
       <PopoverTrigger>{trigger}</PopoverTrigger>
       <Portal>
         <PopoverContent bgColor={"gray.900"}>
-          <PopoverArrow />
+          <PopoverArrow bgColor={"gray.900"} />
           <PopoverCloseButton />
           <PopoverBody py={4}>
-            <form
+            <FormControl
+              as="form"
+              isInvalid={isError}
               onSubmit={(e) => {
                 e.preventDefault();
-                write?.();
+                submit?.();
+                onClose();
               }}
             >
+              <FormLabel>Delegate to</FormLabel>
               <HStack spacing={2} alignItems={"end"}>
-                <FormControl>
-                  <FormLabel>Delegate to</FormLabel>
-                  <Input
-                    type="text"
-                    placeholder="Address or ENS"
-                    value={delegateTo}
-                    onChange={(e) => setDelegateTo(e.target.value)}
-                    ref={initialFocusRef}
-                  />
-
-                  {(isPrepareError || isError) && (
-                    <FormHelperText>Error: {(prepareError ?? error)?.message}</FormHelperText>
-                  )}
-                </FormControl>
+                <Input
+                  type="text"
+                  placeholder="Address or ENS"
+                  value={newDelegate}
+                  onChange={(e) => setNewDelegate(e.target.value)}
+                  ref={initialFocusRef}
+                />
                 <IconButton
                   aria-label={"Confirm"}
                   colorScheme="purple"
                   size={"md"}
-                  disabled={!write}
-                  isLoading={isPrepareLoading || isLoading}
+                  disabled={!submit}
+                  isLoading={isLoading}
                   type="submit"
                   icon={<CheckIcon></CheckIcon>}
                 />
               </HStack>
-            </form>
+
+              {error && <FormErrorMessage>Error: {error?.message}</FormErrorMessage>}
+            </FormControl>
           </PopoverBody>
         </PopoverContent>
       </Portal>
