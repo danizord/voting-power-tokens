@@ -15,7 +15,7 @@ import {
   Portal,
   useDisclosure,
 } from "@chakra-ui/react";
-import { abi, VotingPowerToken } from "@danizord/voting-power-tokens-sdk";
+import { abi, VotingPowerToken } from "@voting-power/sdk";
 import { ReactElement, useRef, useState } from "react";
 import { useDebounce } from "usehooks-ts";
 import { Address, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";

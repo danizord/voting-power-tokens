@@ -1,5 +1,4 @@
-import { abi, VotingPowerToken } from "@danizord/voting-power-tokens-sdk";
-
+import { abi, VotingPowerToken } from "@voting-power/sdk";
 import { Address, useContractRead } from "wagmi";
 import { useAccount } from "./blockchain";
 

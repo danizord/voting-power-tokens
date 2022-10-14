@@ -1,5 +1,5 @@
 import { Alert, AlertDescription, AlertIcon, Button } from "@chakra-ui/react";
-import { VotingPowerToken } from "@danizord/voting-power-tokens-sdk";
+import { VotingPowerToken } from "@voting-power/sdk";
 import type { Address } from "wagmi";
 import { useEnsName } from "wagmi";
 import { DelegateDialog } from "./DelegateDialog";

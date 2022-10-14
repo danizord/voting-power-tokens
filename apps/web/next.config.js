@@ -1,4 +1,4 @@
-const withTM = require("next-transpile-modules")(["@danizord/voting-power-tokens-sdk"]);
+const withTM = require("next-transpile-modules")(["@voting-power/sdk"]);
 
 module.exports = withTM({
   reactStrictMode: true,

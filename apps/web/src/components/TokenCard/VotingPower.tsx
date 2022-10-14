@@ -1,5 +1,5 @@
 import { Stack, Stat, StatLabel, StatNumber } from "@chakra-ui/react";
-import { VotingPowerToken } from "@danizord/voting-power-tokens-sdk";
+import { VotingPowerToken } from "@voting-power/sdk";
 import { useAccount } from "../../blockchain";
 import { useDelegate, useVotesToDelegate, useVotingPower } from "../../hooks";
 

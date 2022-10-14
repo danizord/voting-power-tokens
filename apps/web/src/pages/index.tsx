@@ -1,5 +1,5 @@
 import { Container, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
-import { supportedTokens } from "@danizord/voting-power-tokens-sdk";
+import { supportedTokens } from "@voting-power/sdk";
 import { ConnectKitButton } from "connectkit";
 import { Suspense } from "react";
 import { useAccount } from "../blockchain";

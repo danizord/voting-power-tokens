@@ -1,6 +1,6 @@
 import { getMainnetSdk } from ".dethcrypto/eth-sdk-client";
 import { ethers } from "ethers";
-import { config } from "./eth-sdk/config";
+import { config } from "../eth-sdk/config";
 import { VotingPowerToken } from "./index";
 
 const nounsDaoGovernance: VotingPowerToken = {

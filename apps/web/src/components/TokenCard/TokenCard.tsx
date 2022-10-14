@@ -1,6 +1,6 @@
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { Box, Button, Heading, HStack, Image, Link, Stack, Text } from "@chakra-ui/react";
-import { VotingPowerToken } from "@danizord/voting-power-tokens-sdk";
+import { VotingPowerToken } from "@voting-power/sdk";
 import { useAccount } from "../../blockchain";
 import { useDelegate, useVotesToDelegate, useVotingPower } from "../../hooks";
 import { DalegatedAlert } from "./DelegatedAlert";

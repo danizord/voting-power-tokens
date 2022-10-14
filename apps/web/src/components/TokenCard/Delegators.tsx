@@ -1,6 +1,6 @@
 import { EditIcon } from "@chakra-ui/icons";
 import { Button, HStack, Stack, Table, TableContainer, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
-import { abi, getDelegators, VotingPowerToken } from "@danizord/voting-power-tokens-sdk";
+import { abi, getDelegators, VotingPowerToken } from "@voting-power/sdk";
 import { Address, useContractEvent, useEnsName, useQuery } from "wagmi";
 import { client, useAccount } from "../../blockchain";
 import { useVotesToDelegate, useVotingPower } from "../../hooks";
