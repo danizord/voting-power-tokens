@@ -53,7 +53,7 @@ export const DelegateDialog = ({ trigger, token }: { trigger: ReactElement; toke
     >
       <PopoverTrigger>{trigger}</PopoverTrigger>
       <Portal>
-        <PopoverContent color="white" bg="blue.800" borderColor="blue.800">
+        <PopoverContent bgColor={"gray.900"}>
           <PopoverArrow />
           <PopoverCloseButton />
           <PopoverBody py={4}>
@@ -80,7 +80,8 @@ export const DelegateDialog = ({ trigger, token }: { trigger: ReactElement; toke
                 </FormControl>
                 <IconButton
                   aria-label={"Confirm"}
-                  colorScheme="teal"
+                  colorScheme="purple"
+                  size={"md"}
                   disabled={!write}
                   isLoading={isPrepareLoading || isLoading}
                   type="submit"

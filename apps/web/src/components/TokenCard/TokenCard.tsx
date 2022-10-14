@@ -1,5 +1,5 @@
 import { ExternalLinkIcon } from "@chakra-ui/icons";
-import { Box, Button, Heading, HStack, Image, Link, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Heading, HStack, Image, Stack, Text } from "@chakra-ui/react";
 import { VotingPowerToken } from "@voting-power/sdk";
 import { useAccount } from "../../blockchain";
 import { useDelegate, useVotesToDelegate, useVotingPower } from "../../hooks";
@@ -18,7 +18,7 @@ export function TokenCard({ token }: { token: VotingPowerToken }) {
   }
 
   return (
-    <Box p={6} rounded="xl" backgroundColor={"whiteAlpha.50"}>
+    <Box p={6} rounded="xl" backgroundColor={"whiteAlpha.100"}>
       <HStack spacing={8} align="start">
         <Stack spacing={6}>
           <Image src={token.image} height="48" alt={`${token.name} Voting Power Token`} rounded="xl" />
@@ -45,11 +45,18 @@ export function TokenCard({ token }: { token: VotingPowerToken }) {
 
         <Stack spacing={6}>
           <VotingPower token={token}></VotingPower>
-          <Link href={token.voteUrl}>
-            <Button width={"full"} rightIcon={<ExternalLinkIcon />}>
-              Vote
-            </Button>
-          </Link>
+
+          <Button
+            as={"a"}
+            href={token.voteUrl}
+            target="_blank"
+            width={"full"}
+            size={"md"}
+            colorScheme="purple"
+            rightIcon={<ExternalLinkIcon />}
+          >
+            Vote
+          </Button>
         </Stack>
       </HStack>
     </Box>
