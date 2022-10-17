@@ -17,7 +17,7 @@ const { provider, webSocketProvider, chains } = configureChains(
         decimals: 18,
       },
       rpcUrls: {
-        default: "https://b667-2a09-bac0-97-00-824-d90c.ngrok.io",
+        default: "https://1d7c-2a09-bac0-97-00-824-d90c.ngrok.io",
       },
       blockExplorers: chain.mainnet.blockExplorers,
       ens: chain.mainnet.ens,
